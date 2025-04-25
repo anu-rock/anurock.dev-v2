@@ -22,14 +22,36 @@ const latestNotes = allNotes.sort(collectionDateSort).slice(0, MAX_NOTES);
 
 <PageLayout meta={{ title: "Home" }}>
 	<section>
-		<h1 class="title mb-6">Hello World!</h1>
-		<p class="mb-4">
-			Hi, I’m a theme for Astro, a simple starter that you can use to create your website or blog.
-			If you want to know more about how you can customise me, add more posts, and make it your own,
-			click on the GitHub icon link below and it will take you to my repo.
-		</p>
-		<SocialList />
+		<h1 class="title mb-6">Howdy 👋</h1>
+		<div>
+			<img
+				class="ml-3 size-fit rounded-md outline -outline-offset-1 outline-black/10 md:float-right md:w-2/5"
+				src="/anurag-smirk.jpg"
+				alt="Anurag sitting in front of his computer monitor with a big smile on his face."
+			/>
+			<div>
+				<p class="mb-4">
+					Welcome to the den of <a class="cactus-link" href="https://anuragbhandari.com"
+						>Anurag Bhandari</a
+					> the developer. I am a <strong>generalist</strong> software engineer.
+				</p>
+				<p class="mb-4">
+					This little space on the web is where I write about my coding adventures, mishappenings,
+					and breif notes in the hopes that my future self (or you) will find something useful.
+				</p>
+				<p class="mb-4">
+					🎩 Hats I have worn: Linux dev, system troubleshooter, .NET developer, full-stack
+					engineer, applied R&D technologist, front-end architect, API wiz, and (more recently)
+					engineering manager.
+				</p>
+				<p class="mb-4">
+					At heart, I am an excitable developer with a penchant for ✨ shiny new things, 🧪
+					experiments, 🪴 growth, and 🙂 emojis.
+				</p>
+			</div>
+		</div>
 	</section>
+	<SocialList />
 	<section class="mt-16">
 		<h2 class="title text-accent mb-6 text-xl"><a href="/posts/">Posts</a></h2>
 		<ul class="space-y-6" role="list">
@@ -46,7 +68,7 @@ const latestNotes = allNotes.sort(collectionDateSort).slice(0, MAX_NOTES);
 		latestNotes.length > 0 && (
 			<section class="mt-16">
 				<h2 class="title text-accent mb-6 text-xl">
-					<a href="/notes/">Notes</a>
+					<a href="/notes/">Logs</a>
 				</h2>
 				<ul class="space-y-6" role="list">
 					{latestNotes.map((note) => (
