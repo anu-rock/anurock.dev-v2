@@ -79,6 +79,10 @@
 
 					// set the aria-checked attribute
 					button.setAttribute("aria-checked", String(rootInDarkMode()));
+
+					// use the correct site logo
+					let logoSrc = rootInDarkMode() ? "/icon-light.svg" : "/icon.svg";
+					document.getElementById("site-logo")?.setAttribute("src", logoSrc);
 				});
 			} else {
 				console.warn("Theme Toggle: No button found");
