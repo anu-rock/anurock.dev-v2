@@ -8,6 +8,7 @@ export interface SiteConfig {
 	lang: string;
 	ogLocale: string;
 	title: string;
+	caption: string;
 	url: string;
 }
 
