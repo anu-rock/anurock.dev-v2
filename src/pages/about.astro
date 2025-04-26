@@ -2,35 +2,306 @@
 import PageLayout from "@/layouts/Base.astro";
 
 const meta = {
-	description: "I'm a starter theme for Astro.build",
+	description: "Anurag's software engineering philosophy",
 	title: "About",
 };
 ---
 
 <PageLayout meta={meta}>
 	<h1 class="title mb-6">About</h1>
-	<div class="prose prose-sm prose-cactus max-w-none">
-		<p>
-			Hi, I’m a starter Astro. I’m particularly great for getting you started with your own blogging
-			website.
-		</p>
-		<p>Here are my some of my awesome built in features:</p>
-		<ul class="list-inside list-disc" role="list">
-			<li>I'm ultra fast as I'm a static site</li>
-			<li>I'm fully responsive</li>
-			<li>I come with a light and dark mode</li>
-			<li>I'm easy to customise and add additional content</li>
-			<li>I have Tailwind CSS styling</li>
-			<li>Shiki code syntax highlighting</li>
-			<li>Satori for auto generating OG images for blog posts</li>
-		</ul>
-		<p>
-			Clone or fork my <a
-				class="cactus-link inline-block"
-				href="https://github.com/chrismwilliams/astro-cactus"
-				rel="noreferrer"
-				target="_blank">repo</a
-			> if you like me!
-		</p>
-	</div>
+	<article>
+		<section class="mb-8">
+			<strong>tl;dr</strong>
+			I am <a class="cactus-link" href="https://anuragbhandari.com">Anurag Bhandari</a>. I am a <strong
+				>generalist software engineer</strong
+			>. From services to startup to research to consulting to product, I've been collecting and
+			applying my skills diversely. I've also authored <a
+				href="https://anuragbhandari.com/books/"
+				class="cactus-link">two books</a
+			> on programming. I started my "enterprise" journey with .NET, switched over to JavaScript, and
+			worked with PHP, Java, and Python at various points. As a generalist, I believe in being adaptable
+			and focusing on learning the right things at the right time. This philosophy has allowed me to
+			work across various domains and technologies successfully.
+		</section>
+		<section class="mb-8 rounded-xl bg-white p-8 dark:bg-zinc-800">
+			<h2 class="mb-4 text-xl font-bold">What's AnuRock.dev?</h2>
+			<p class="mb-4">
+				It is a platform where I share my expertise, insights, and experiences as a software
+				engineer. The goal is to help fellow developers enhance their productivity, learn effective
+				methods, and grow in their careers.
+			</p>
+			<p class="mb-4">
+				This website serves as <strong>my digital garden</strong> where I cultivate ideas, share educational
+				content, and connect with the developer community.
+			</p>
+		</section>
+		<section class="mb-8">
+			<h2 class="mb-4 text-xl font-bold">Humble beginnings</h2>
+			<p class="mb-4">
+				I have been creating software professionally for more than 15 years. But my development
+				journey goes back at least four more years.
+			</p>
+			<p class="mb-4">
+				The first software I wrote was, if memory serves me well, a website I created for my dad's
+				business in 2005, the year I started college. I hosted it on a free subdomain/webspace I had <em
+					>earned</em
+				> as an active member of a community forum.
+			</p>
+			<p class="mb-4">
+				What got me really hooked to web development was KDE's gallery generator (built into its
+				file explorer) that took in a bunch of selected image files and spit out a beautiful HTML
+				file complete with the necessary <strong>CSS and JavaScript</strong>. The unlikliest of
+				sources of inspiration, I know. But CSS and JS were a game changer for me.
+			</p>
+			<div class="mt-6 mb-6 overflow-hidden rounded-lg bg-zinc-200">
+				<img
+					src="/anurag-coming-at-you.jpg"
+					alt="Anurag peering at the reader with hands clasped"
+					class="h-full w-full object-cover"
+				/>
+			</div>
+		</section>
+		<section class="mb-8">
+			<h2 class="mb-4 text-xl font-bold">I am a generalist</h2>
+			<p class="mb-4">
+				I've worked with a good deal of programming languages, frameworks, and libraries. I am
+				easily excited and find it difficult to resist the urge to try new technologies.
+			</p>
+			<p class="mb-4">
+				I started my career as a <a
+					class="cactus-link"
+					href="https://en.wikipedia.org/wiki/.NET_Framework">.NET</a
+				> developer cranking out Microsoft Office add-ins and ASP.NET websites. My love for open-source
+				soon saw me spearhead <a
+					class="cactus-link"
+					href="https://en.wikipedia.org/wiki/Java_(programming_language)">Java</a
+				> and <a class="cactus-link" href="https://en.wikipedia.org/wiki/PHP">PHP</a> projects in a very
+				.NET environment (a proprietary walled garden back then). These were the languages I was more
+				comfortable in, stuff I had picked up during my student days. At the dawn of full-stack JavaScript,
+				I fully embraced JS as a first-class programming language and became its advocate.
+			</p>
+			<p class="mb-4">
+				When <a
+					class="cactus-link"
+					href="https://en.wikipedia.org/wiki/Ionic_(mobile_app_framework)">Ionic Framework</a
+				> was still in its infancy, I was spinning out mobile apps for internal clients. Migrating a
+				fully-functional web app from <a
+					class="cactus-link"
+					href="https://en.wikipedia.org/wiki/AngularJS">AngularJS</a
+				> to <a class="cactus-link" href="https://en.wikipedia.org/wiki/Angular_(web_framework)"
+					>Angular</a
+				> 2 (beta) was an adventure of a lifetime! Less than a year after React was publicly released,
+				with a state management pattern called Flux, I was teaching a class full of college graduates
+				to build an enterprise CRM end-to-end in JS (React + Node.js).
+			</p>
+			<p class="mb-4">
+				I became a <a href="https://en.wikipedia.org/wiki/Flutter_(software)">Flutter</a> fan early on
+				and established a center of excellence at a large digital consulting firm to promote it as a
+				viable mobile SDK. This website was first created as a weekend project in <a
+					class="cactus-link"
+					href="https://astro.build">Astro</a
+				> the day it turned v1.
+			</p>
+			<p class="mb-4">
+				All that to say my profession is <strong>not defined by a particular</strong> language or tech
+				stack.
+			</p>
+		</section>
+		<section class="mb-8">
+			<h2 class="mb-6 text-xl font-bold">My software development philosophy</h2>
+			<p class="mb-4">
+				I subscribe to the <span class="bg-yellow-200"
+					><a href="#" class="cactus-link">jack of all trades</a> and master of one</span
+				> philosophy. Some people call it the T-shaped profile. I strongly believe that to succeed in
+				the ever-changing tech landscape of today, a software developer must constantly learn and unlearn
+				skills as demanded by work at hand.
+			</p>
+			<p class="mb-4">
+				Languages and frameworks are spanners and pliers in an ever-evolving toolkit. There's no
+				point tying your self-worth to a specific tool. Let that sink in.
+			</p>
+			<p class="mb-4">
+				My mantra to learn rapidly and effectively is to master the 20% of a skill that will account
+				for 80% of my application's codebase (<a
+					href="https://en.wikipedia.org/wiki/Pareto_principle"
+					class="cactus-link">Pareto Principle</a
+				>).
+			</p>
+			<p class="mb-4">
+				By applying the <strong>20% method of learning</strong>, I can be productive in any skill in
+				less than a week. Time gained by focusing on fewer (but important) concepts allows me to
+				jump into development early. Mastering best practices takes time, so I remain consciously
+				curious about aspects like performance, security, and automated testing from day 1.
+			</p>
+			<p>
+				This approach has enabled me to quickly adapt to new technologies and projects throughout my
+				career, making me effective across different domains.
+			</p>
+		</section>
+		<section class="mb-8">
+			<h2 class="mb-6 text-xl font-bold">The key lesson of software engineering</h2>
+			<p class="mb-4">Software engineering is much bigger and harder than coding.</p>
+			<p class="mb-4">
+				Wait! Aren't coding, programming, development, and engineering one and the same? They are
+				not.
+			</p>
+			<p class="mb-4">
+				<img
+					src="/software-engineering-expectations.png"
+					alt=" A good developer - perception vs.
+				reality"
+				/>
+			</p>
+			<blockquote class="mb-4 border-l-2 text-center italic">
+				Software engineering is programming integrated over time. If you accept this distinction, it
+				also becomes clear that we might need to delineate between programming tasks (development)
+				and software engineering tasks (development, modificiation, maintenance). - <a
+					class="cactus-link"
+					href="https://www.goodreads.com/en/book/show/48816586-software-engineering-at-google"
+					>Software Engineering at Google</a
+				>
+			</blockquote>
+		</section>
+		<section class="mb-8">
+			<h3 class="mb-6 font-bold">What does it mean for you as a software developer?</h3>
+			<p class="mb-4">
+				It means that writing code is just the first step toward creating a software that works.
+			</p>
+			<p class="mb-4">
+				To create a software that will work for years to come, it’s imperitive to widen your view of
+				engineering to encompass other equally important aspects like automated tests, code reviews,
+				version control, code style, and security.
+			</p>
+			<p class="mb-4">
+				These are things that a shockingly vast majority of us do not care about, have not been
+				exposed to, or simply take for granted. "Oh, somebody else will surely take care of them. My
+				job is to write code, fast." Sorry to disappoint: that somebody is you.
+			</p>
+		</section>
+		<section class="mb-8">
+			<h2 class="mb-6 text-xl font-bold">My Work</h2>
+			<p class="mb-8">
+				Throughout my career, I've worked on a diverse range of projects and shared my knowledge
+				through various mediums:
+			</p>
+
+			<div class="mb-8 grid gap-6 sm:grid-cols-2 md:grid-cols-3">
+				<div class="rounded-lg bg-white p-6 shadow-sm dark:bg-zinc-800">
+					<span class="mb-4 text-3xl text-blue-600">👨‍💻</span>
+					<h3 class="mb-2 text-xl font-bold">Software Development</h3>
+					<p>
+						Building scalable, maintainable applications across different technology stacks and
+						domains.
+					</p>
+				</div>
+
+				<div class="rounded-lg bg-white p-6 shadow-sm dark:bg-zinc-800">
+					<span class="mb-4 text-3xl text-blue-600">📖</span>
+					<h3 class="mb-2 text-xl font-bold">
+						<a class="cactus-link" href="https://anuragbhandari.com/books/">Books</a>
+					</h3>
+					<p>
+						Author of two technical books that help developers improve their skills and knowledge.
+					</p>
+				</div>
+
+				<div class="rounded-lg bg-white p-6 shadow-sm dark:bg-zinc-800">
+					<span class="mb-4 text-3xl text-blue-600">▶️</span>
+					<h3 class="mb-2 text-xl font-bold">
+						<a class="cactus-link" href="https://www.youtube.com/@anurock">Videos</a>
+					</h3>
+					<p>
+						Educational content that covers programming concepts, productivity tips, and career
+						advice.
+					</p>
+				</div>
+
+				<div class="rounded-lg bg-white p-6 shadow-sm dark:bg-zinc-800">
+					<span class="mb-4 text-3xl text-blue-600">🎙️</span>
+					<h3 class="mb-2 text-xl font-bold">
+						<a class="cactus-link" href="https://anuragbhandari.com/podcasts/">Podcasts</a>
+					</h3>
+					<p>Discussions about software engineering, learning methods, and industry trends.</p>
+				</div>
+
+				<div class="rounded-lg bg-white p-6 shadow-sm dark:bg-zinc-800">
+					<span class="mb-4 text-3xl text-blue-600">🛜</span>
+					<h3 class="mb-2 text-xl font-bold">Blog</h3>
+					<p>
+						Articles, tutorials, and insights on software development, productivity, and learning.
+					</p>
+				</div>
+
+				<div class="rounded-lg bg-white p-6 shadow-sm dark:bg-zinc-800">
+					<span class="mb-4 text-3xl text-blue-600">👨‍🏫</span>
+					<h3 class="mb-2 text-xl font-bold">Mentoring</h3>
+					<p>Helping other developers grow through coaching, feedback, and knowledge sharing.</p>
+				</div>
+			</div>
+		</section>
+		<section class="mb-8 rounded-xl bg-white p-8 text-center dark:bg-zinc-800">
+			<h2 class="mb-6 text-3xl font-bold">Connect with Me</h2>
+			<p class="mx-auto mb-8 max-w-2xl">
+				I'm always interested in connecting with fellow developers, sharing knowledge, and
+				collaborating on interesting projects.
+			</p>
+
+			<div class="flex flex-wrap justify-center gap-4">
+				<a
+					href="https://github.com/anu-rock"
+					class="flex items-center rounded bg-zinc-100 px-4 py-2 hover:bg-zinc-200 dark:bg-zinc-700 dark:hover:bg-zinc-600"
+				>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						width="24"
+						height="24"
+						viewBox="0 0 24 24"
+						fill="currentColor"
+						class="mr-2"
+					>
+						<path
+							d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
+						></path>
+					</svg>
+					GitHub
+				</a>
+				<a
+					href="https://twitter.com/anuragbhandari"
+					class="flex items-center rounded bg-zinc-100 px-4 py-2 hover:bg-zinc-200 dark:bg-zinc-700 dark:hover:bg-zinc-600"
+				>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						width="24"
+						height="24"
+						viewBox="0 0 24 24"
+						fill="currentColor"
+						class="mr-2"
+					>
+						<path
+							d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"
+						></path>
+					</svg>
+					Twitter
+				</a>
+				<a
+					href="https://linkedin.com/in/anuragbhandari"
+					class="flex items-center rounded bg-zinc-100 px-4 py-2 hover:bg-zinc-200 dark:bg-zinc-700 dark:hover:bg-zinc-600"
+				>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						width="24"
+						height="24"
+						viewBox="0 0 24 24"
+						fill="currentColor"
+						class="mr-2"
+					>
+						<path
+							d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z"
+						></path>
+					</svg>
+					LinkedIn
+				</a>
+			</div>
+		</section>
+	</article>
 </PageLayout>
