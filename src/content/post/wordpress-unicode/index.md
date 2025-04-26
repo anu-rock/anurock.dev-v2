@@ -11,7 +11,7 @@ My [webhost](https://contabo.com/en/) spiked their monthly fee by 25% for the se
 
 When I asked to be downgraded to a similar but newer plan (half the cost), I was outright refused. *Technical reasons*, you know. Apparently, I would need to purchase new VPS on my own and pay them $80 as a one-time migration fee.
 
-Eightly dollars for moving a bunch of folders between VPS servers on the same network! If that's not extortion, I don't know what is.
+Eighty dollars for moving a bunch of folders between VPS servers on the same network! If that's not extortion, I don't know what is.
 
 It took me a good couple of sittings, but eventually I was able to move over everything to their cheaper VPS. Yeah, I am richer by $48/yr now.
 
