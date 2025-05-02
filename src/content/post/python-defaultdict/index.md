@@ -5,7 +5,7 @@ publishDate: "02 May 2025"
 tags: ["python", "dictionary", "hashmap"]
 ---
 
-In my post on [coding minimalism](/leetcode-minimalism), I talked about leveraging data structures and defaults built into a language's standard library to avoid error-prone boilerplate code.
+In my post on [coding minimalism](/posts/leetcode-minimalism), I talked about leveraging data structures and defaults built into a language's standard library to avoid error-prone boilerplate code.
 
 This post is a quick reminder that Python comes with something called [`defaultdict`](https://www.geeksforgeeks.org/defaultdict-in-python/) that will help you avoid errors resulting from trying to access non-existent keys in a dictionary.
 
