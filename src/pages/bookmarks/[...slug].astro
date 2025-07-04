@@ -1,0 +1,27 @@
+---
+import { getCollection } from "astro:content";
+import Bookmark from "@/components/bookmark/Bookmark.astro";
+import PageLayout from "@/layouts/Base.astro";
+import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
+
+export const getStaticPaths = (async () => {
+	const allBookmarks = await getCollection("bookmark");
+	return allBookmarks.map((bookmark) => ({
+		params: { slug: bookmark.id },
+		props: { bookmark },
+	}));
+}) satisfies GetStaticPaths;
+
+export type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
+const { bookmark } = Astro.props;
+
+const meta = {
+	description: bookmark.data.excerpt,
+	title: bookmark.data.title,
+};
+---
+
+<PageLayout meta={meta}>
+	<Bookmark as="h1" bookmark={bookmark} />
+</PageLayout>

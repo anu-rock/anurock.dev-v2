@@ -45,4 +45,16 @@ const note = defineCollection({
 	}),
 });
 
-export const collections = { post, note };
+const bookmark = defineCollection({
+	loader: glob({ base: "./src/content/bookmark", pattern: "**/*.{md,mdx}" }),
+	schema: baseSchema.extend({
+		url: z.string().url(),
+		excerpt: z.string(),
+		readDate: z
+			.string()
+			.datetime({ offset: true })
+			.transform((val) => new Date(val)),
+	}),
+});
+
+export const collections = { post, note, bookmark };

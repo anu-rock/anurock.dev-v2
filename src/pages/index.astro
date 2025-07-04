@@ -6,6 +6,7 @@ import Note from "@/components/note/Note.astro";
 import { getAllPosts } from "@/data/post";
 import PageLayout from "@/layouts/Base.astro";
 import { collectionDateSort } from "@/utils/date";
+import Bookmark from "@/components/bookmark/Bookmark.astro";
 
 // Posts
 const MAX_POSTS = 10;
@@ -18,6 +19,13 @@ const allPostsByDate = allPosts
 const MAX_NOTES = 5;
 const allNotes = await getCollection("note");
 const latestNotes = allNotes.sort(collectionDateSort).slice(0, MAX_NOTES);
+
+// Bookmarks
+const MAX_BOOKMARKS = 3;
+const allBookmarks = await getCollection("bookmark");
+const latestBookmarks = allBookmarks
+	.sort((a, b) => b.data.readDate.getTime() - a.data.readDate.getTime())
+	.slice(0, MAX_BOOKMARKS);
 ---
 
 <PageLayout meta={{ title: "Home" }}>
@@ -53,7 +61,7 @@ const latestNotes = allNotes.sort(collectionDateSort).slice(0, MAX_NOTES);
 	</section>
 	<SocialList />
 	<section class="mt-16">
-		<h2 class="title text-accent mb-6 text-xl"><a href="/posts/">Posts</a></h2>
+		<h2 class="title text-accent mb-6 text-xl"><a href="/posts/">📝 Posts</a></h2>
 		<ul class="space-y-6" role="list">
 			{
 				allPostsByDate.map((p) => (
@@ -68,12 +76,28 @@ const latestNotes = allNotes.sort(collectionDateSort).slice(0, MAX_NOTES);
 		latestNotes.length > 0 && (
 			<section class="mt-16">
 				<h2 class="title text-accent mb-6 text-xl">
-					<a href="/notes/">Notes</a>
+					<a href="/notes/">🤔 Notes</a>
 				</h2>
 				<ul class="space-y-6" role="list">
 					{latestNotes.map((note) => (
 						<li>
 							<Note note={note} as="h3" isPreview />
+						</li>
+					))}
+				</ul>
+			</section>
+		)
+	}
+	{
+		latestBookmarks.length > 0 && (
+			<section class="mt-16">
+				<h2 class="title text-accent mb-6 text-xl">
+					<a href="/bookmarks/">🔖 Bookmarks</a>
+				</h2>
+				<ul class="space-y-6" role="list">
+					{latestBookmarks.map((bookmark) => (
+						<li>
+							<Bookmark bookmark={bookmark} as="h3" isPreview />
 						</li>
 					))}
 				</ul>

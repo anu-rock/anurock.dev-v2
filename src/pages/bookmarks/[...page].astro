@@ -1,0 +1,67 @@
+---
+import { type CollectionEntry } from "astro:content";
+import Pagination from "@/components/Paginator.astro";
+import Bookmark from "@/components/bookmark/Bookmark.astro";
+import { getAllBookmarks } from "@/data/bookmark";
+import PageLayout from "@/layouts/Base.astro";
+import type { GetStaticPaths, Page } from "astro";
+import { Icon } from "astro-icon/components";
+
+export const getStaticPaths = (async ({ paginate }) => {
+	const MAX_BOOKMARKS_PER_PAGE = 10;
+	const allBookmarks = await getAllBookmarks();
+	// Sort by readDate in reverse chronological order
+	const sortedBookmarks = allBookmarks.sort(
+		(a, b) => b.data.readDate.getTime() - a.data.readDate.getTime(),
+	);
+	return paginate(sortedBookmarks, { pageSize: MAX_BOOKMARKS_PER_PAGE });
+}) satisfies GetStaticPaths;
+
+interface Props {
+	page: Page<CollectionEntry<"bookmark">>;
+}
+
+const { page } = Astro.props;
+
+const meta = {
+	description: "Read my collection of bookmarks",
+	title: "Bookmarks",
+};
+
+const paginationProps = {
+	...(page.url.prev && {
+		prevUrl: {
+			text: "← Previous Page",
+			url: page.url.prev,
+		},
+	}),
+	...(page.url.next && {
+		nextUrl: {
+			text: "Next Page →",
+			url: page.url.next,
+		},
+	}),
+};
+---
+
+<PageLayout meta={meta}>
+	<section>
+		<h1 class="title mb-6 flex items-center gap-3">
+			Bookmarks
+			<a class="text-accent" href="/bookmarks/rss.xml" target="_blank">
+				<span class="sr-only">RSS feed</span>
+				<Icon aria-hidden="true" class="h-6 w-6" focusable="false" name="mdi:rss" />
+			</a>
+		</h1>
+		<ul class="mt-6 space-y-8 text-start">
+			{
+				page.data.map((bookmark) => (
+					<li>
+						<Bookmark bookmark={bookmark} as="h2" isPreview />
+					</li>
+				))
+			}
+		</ul>
+		<Pagination {...paginationProps} />
+	</section>
+</PageLayout>
