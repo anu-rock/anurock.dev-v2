@@ -1,6 +1,6 @@
 {
-	"name": "",
-	"version": "6.4.0",
+	"name": "anurock.dev-v2",
+	"version": "1.0.0",
 	"scripts": {
 		"dev": "astro dev",
 		"start": "astro dev",
@@ -12,7 +12,7 @@
 		"format:code": "biome format . --write && prettier -w \"**/*\" \"!**/*.{md,mdx}\" --ignore-unknown --cache",
 		"format:imports": "biome check --formatter-enabled=false --write",
 		"check": "astro check",
-		"create-bookmark": "node scripts/create-bookmark.js"
+		"create-bookmark": "node scripts/create-bookmark.cjs"
 	},
 	"dependencies": {
 		"@astrojs/markdown-remark": "^6.3.1",

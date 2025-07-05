@@ -1,10 +1,9 @@
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
-import { JSDOM } from 'jsdom';
+const fs = require('fs');
+const path = require('path');
+const { JSDOM } = require('jsdom');
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const FILE_NAME = __filename || path.basename(__filename);
+const DIR_NAME = path.dirname(FILE_NAME);
 
 async function fetchPageMetadata(url) {
     try {
@@ -104,7 +103,7 @@ async function createBookmark(url) {
         const content = generateFrontmatter(url, metadata);
         
         // Ensure bookmark directory exists
-        const bookmarkDir = path.join(__dirname, '..', 'src', 'content', 'bookmark');
+        const bookmarkDir = path.join(DIR_NAME, '..', 'src', 'content', 'bookmark');
         if (!fs.existsSync(bookmarkDir)) {
             fs.mkdirSync(bookmarkDir, { recursive: true });
         }
