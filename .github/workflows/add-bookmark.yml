@@ -1,0 +1,48 @@
+name: Add Bookmark
+
+on:
+  workflow_dispatch:
+    inputs:
+      url:
+        description: "The URL of the bookmark"
+        required: true
+        type: string
+      thoughts:
+        description: "Your thoughts about the bookmark"
+        required: false
+        type: string
+
+jobs:
+  add-bookmark:
+    runs-on: ubuntu-latest
+
+    # Restrict workflow to specific users
+    if: github.actor == 'anu-rock'
+
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "22"
+
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        run: npm install
+
+      # Step 4: Run the create-bookmark script
+      - name: Create bookmark
+        run: npm run create-bookmark "${{ github.event.inputs.url }}" "${{ github.event.inputs.thoughts }}"
+
+      # Step 5: Commit and push changes
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit -m "Add bookmark"
+          git push
