@@ -41,8 +41,8 @@ jobs:
       # Step 5: Commit and push changes
       - name: Commit and push changes
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "AnuRock"
+          git config --global user.email "echo@anurock.dev"
           git add .
           git commit -m "Add bookmark"
           git push
