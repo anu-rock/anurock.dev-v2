@@ -16,6 +16,9 @@ jobs:
   add-bookmark:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: write
+
     # Restrict workflow to specific users
     if: github.actor == 'anu-rock'
 
