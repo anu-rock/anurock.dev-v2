@@ -64,13 +64,19 @@ function createSlug(title) {
         .trim();
 }
 
-function generateFrontmatter(url, metadata) {
+function generateFrontmatter(url, metadata, thoughts) {
     const now = new Date();
     const readDate = now.toISOString();
     
     // Clean up title and description for YAML
     const cleanTitle = metadata.title.replace(/"/g, '\\"');
     const cleanDescription = metadata.description.replace(/"/g, '\\"');
+
+    const boilerplateThoughts = `<!-- Add your notes about this bookmark here -->
+
+${metadata.author ? `**Author:** ${metadata.author}` : ''}
+${metadata.siteName ? `**Source:** ${metadata.siteName}` : ''}`;
+    const thoughtsToAppend = thoughts ?? boilerplateThoughts;
     
     return `---
 title: "${cleanTitle}"
@@ -79,14 +85,11 @@ excerpt: "${cleanDescription}"
 readDate: "${readDate}"
 ---
 
-<!-- Add your notes about this bookmark here -->
-
-${metadata.author ? `**Author:** ${metadata.author}` : ''}
-${metadata.siteName ? `**Source:** ${metadata.siteName}` : ''}
+${thoughtsToAppend}
 `;
 }
 
-async function createBookmark(url) {
+async function createBookmark(url, thoughts) {
     try {
         // Validate URL
         new URL(url);
@@ -100,7 +103,7 @@ async function createBookmark(url) {
         const filename = `${timestamp}-${slug}.md`;
         
         // Create bookmark content
-        const content = generateFrontmatter(url, metadata);
+        const content = generateFrontmatter(url, metadata, thoughts);
         
         // Ensure bookmark directory exists
         const bookmarkDir = path.join(DIR_NAME, '..', 'src', 'content', 'bookmark');
@@ -131,6 +134,7 @@ async function createBookmark(url) {
 
 // Main execution
 const url = process.argv[2];
+const thoughts = process.argv[3]; // optional
 
 if (!url) {
     console.error('❌ Please provide a URL as an argument');
@@ -138,4 +142,4 @@ if (!url) {
     process.exit(1);
 }
 
-createBookmark(url);
+createBookmark(url, thoughts);
