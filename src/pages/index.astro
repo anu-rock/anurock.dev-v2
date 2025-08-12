@@ -61,7 +61,9 @@ const latestBookmarks = allBookmarks
 	</section>
 	<SocialList />
 	<section class="mt-16">
-		<h2 class="title text-accent mb-6 text-xl"><a href="/posts/">📝 Posts</a></h2>
+		<h2 class="title text-accent mb-6 text-xl">
+			<a href="/posts/">📝 Posts ({allPosts.length})</a>
+		</h2>
 		<ul class="space-y-6" role="list">
 			{
 				allPostsByDate.map((p) => (
@@ -76,7 +78,7 @@ const latestBookmarks = allBookmarks
 		latestNotes.length > 0 && (
 			<section class="mt-16">
 				<h2 class="title text-accent mb-6 text-xl">
-					<a href="/notes/">🤔 Notes</a>
+					<a href="/notes/">🤔 Notes ({allNotes.length})</a>
 				</h2>
 				<ul class="space-y-6" role="list">
 					{latestNotes.map((note) => (
@@ -92,7 +94,7 @@ const latestBookmarks = allBookmarks
 		latestBookmarks.length > 0 && (
 			<section class="mt-16">
 				<h2 class="title text-accent mb-6 text-xl">
-					<a href="/bookmarks/">🔖 Bookmarks</a>
+					<a href="/bookmarks/">🔖 Bookmarks ({allBookmarks.length})</a>
 				</h2>
 				<ul class="space-y-6" role="list">
 					{latestBookmarks.map((bookmark) => (
