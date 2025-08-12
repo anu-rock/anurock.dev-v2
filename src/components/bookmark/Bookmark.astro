@@ -27,38 +27,45 @@ const { Content } = await render(bookmark);
 			)
 		}
 	</Tag>
-	<div class="mb-2 flex flex-wrap items-center gap-2 text-sm">
-		<a
-			href={bookmark.data.url}
-			target="_blank"
-			rel="noopener noreferrer"
-			class="text-accent hover:underline"
-		>
-			Read Original →
-		</a>
-		<FormattedDate
-			dateTimeOptions={{
-				hour: "2-digit",
-				minute: "2-digit",
-				year: "2-digit",
-				month: "2-digit",
-				day: "2-digit",
-			}}
-			date={bookmark.data.readDate}
-		/>
-	</div>
+	{
+		!isPreview && (
+			<div class="mb-2 flex flex-wrap items-center gap-2 text-sm">
+				<FormattedDate
+					dateTimeOptions={{
+						hour: "2-digit",
+						minute: "2-digit",
+						year: "2-digit",
+						month: "2-digit",
+						day: "2-digit",
+					}}
+					date={bookmark.data.readDate}
+				/>
+			</div>
+		)
+	}
 	{
 		!isPreview && (
 			<p class="mb-3 text-sm text-gray-600 dark:text-gray-400">{bookmark.data.excerpt}</p>
 		)
 	}
+	<div
+		class="prose prose-sm prose-cactus mt-4 max-w-none [&>p:last-of-type]:mb-0"
+		class:list={{ "outline-2 outline-offset-2 outline-dotted": !isPreview }}
+	>
+		<blockquote>
+			<Content />
+		</blockquote>
+	</div>
 	{
 		!isPreview && (
-			<div class="prose prose-sm prose-cactus mt-4 max-w-none [&>p:last-of-type]:mb-0">
-				<blockquote>
-					<Content />
-				</blockquote>
-			</div>
+			<a
+				href={bookmark.data.url}
+				target="_blank"
+				rel="noopener noreferrer"
+				class="text-link hover:underline"
+			>
+				🔗 Read original →
+			</a>
 		)
 	}
 </article>
