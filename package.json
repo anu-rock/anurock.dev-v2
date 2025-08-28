@@ -15,12 +15,12 @@
 		"create-bookmark": "node scripts/create-bookmark.cjs"
 	},
 	"dependencies": {
-		"@astrojs/markdown-remark": "^6.3.1",
-		"@astrojs/mdx": "4.2.4",
-		"@astrojs/rss": "4.0.11",
-		"@astrojs/sitemap": "3.3.0",
+		"@astrojs/markdown-remark": "^6.3.6",
+		"@astrojs/mdx": "4.3.4",
+		"@astrojs/rss": "4.0.12",
+		"@astrojs/sitemap": "3.5.1",
 		"@tailwindcss/vite": "4.1.3",
-		"astro": "5.6.2",
+		"astro": "5.13.4",
 		"astro-expressive-code": "^0.41.1",
 		"astro-icon": "^1.1.5",
 		"astro-robots-txt": "^1.0.0",
