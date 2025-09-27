@@ -96,6 +96,10 @@ async function createBookmark(url, thoughts) {
         
         console.log(`Fetching metadata for: ${url}`);
         const metadata = await fetchPageMetadata(url);
+
+        if(metadata.title === 'Untitled' && metadata.description === '') {
+            throw new Error('Page metadata could not likely be fetched. Retrying usually fixes this.');
+        }
         
         // Create filename from title
         const slug = createSlug(metadata.title);
