@@ -14,13 +14,15 @@ export const GET = async () => {
         // TODO: Cache these expensive operations.
         const { Content } = await render(bookmark);
         const bookmarkCommentaryHtml = await container.renderToString(Content);
-        const bookmarkCommentary = bookmarkCommentaryHtml.replace(/<[^>]*>/g, '').trim();
+        const bookmarkCommentary = bookmarkCommentaryHtml.replace(/<[^>]*>/g, '').trim(); // remove html tags
 
         return {
             title: bookmark.data.title,
-            description: bookmarkCommentary, // my commentary is more important than the article's meta description ;)
+            description: bookmark.data.excerpt,
             pubDate: bookmark.data.readDate,
-            link: bookmark.data.url, // a hack to expose the article url; should ideally be the bookmark url on my site (good news is bookmark url is already exposed in guid)
+            link: `bookmarks/${bookmark.id}/`,
+            content: bookmarkCommentary,
+            commentsUrl: bookmark.data.url, // a hack to expose the article url
         };
     }));
 
