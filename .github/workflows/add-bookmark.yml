@@ -4,11 +4,11 @@ on:
   workflow_dispatch:
     inputs:
       url:
-        description: "The URL of the bookmark"
+        description: "URL (article, post, podcast, etc.)"
         required: true
         type: string
-      thoughts:
-        description: "Your thoughts about the bookmark"
+      commentary:
+        description: "Commentary (multi-line supported)"
         required: false
         type: string
 
@@ -39,7 +39,7 @@ jobs:
 
       # Step 4: Run the create-bookmark script
       - name: Create bookmark
-        run: npm run create-bookmark "${{ github.event.inputs.url }}" "${{ github.event.inputs.thoughts }}"
+        run: npm run create-bookmark "${{ github.event.inputs.url }}" "${{ github.event.inputs.commentary }}"
 
       # Step 5: Commit and push changes
       - name: Commit and push changes

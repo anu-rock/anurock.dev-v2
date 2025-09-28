@@ -64,7 +64,7 @@ function createSlug(title) {
         .trim();
 }
 
-function generateFrontmatter(url, metadata, thoughts) {
+function generateFrontmatter(url, metadata, commentary) {
     const now = new Date();
     const readDate = now.toISOString();
     
@@ -72,11 +72,11 @@ function generateFrontmatter(url, metadata, thoughts) {
     const cleanTitle = metadata.title.replace(/"/g, '\\"');
     const cleanDescription = metadata.description.replace(/"/g, '\\"');
 
-    const boilerplateThoughts = `<!-- Add your notes about this bookmark here -->
+    const boilerplateCommentary = `<!-- Add your notes about this bookmark here -->
 
 ${metadata.author ? `**Author:** ${metadata.author}` : ''}
 ${metadata.siteName ? `**Source:** ${metadata.siteName}` : ''}`;
-    const thoughtsToAppend = thoughts ?? boilerplateThoughts;
+    const commentaryToAppend = commentary ?? boilerplateCommentary;
     
     return `---
 title: "${cleanTitle}"
@@ -85,11 +85,11 @@ excerpt: "${cleanDescription}"
 readDate: "${readDate}"
 ---
 
-${thoughtsToAppend}
+${commentaryToAppend}
 `;
 }
 
-async function createBookmark(url, thoughts) {
+async function createBookmark(url, commentary) {
     try {
         // Validate URL
         new URL(url);
@@ -107,7 +107,7 @@ async function createBookmark(url, thoughts) {
         const filename = `${timestamp}-${slug}.md`;
         
         // Create bookmark content
-        const content = generateFrontmatter(url, metadata, thoughts);
+        const content = generateFrontmatter(url, metadata, commentary);
         
         // Ensure bookmark directory exists
         const bookmarkDir = path.join(DIR_NAME, '..', 'src', 'content', 'bookmark');
@@ -138,7 +138,7 @@ async function createBookmark(url, thoughts) {
 
 // Main execution
 const url = process.argv[2];
-const thoughts = process.argv[3]; // optional
+const commentary = process.argv[3]; // optional
 
 if (!url) {
     console.error('❌ Please provide a URL as an argument');
@@ -146,4 +146,4 @@ if (!url) {
     process.exit(1);
 }
 
-createBookmark(url, thoughts);
+createBookmark(url, commentary);
