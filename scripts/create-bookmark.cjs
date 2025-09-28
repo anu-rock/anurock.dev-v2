@@ -7,7 +7,13 @@ const DIR_NAME = path.dirname(FILE_NAME);
 
 async function fetchPageMetadata(url) {
     try {
-        const response = await fetch(url);
+        const response = await fetch(url, {
+            headers: {
+                // Send a scraper-friendly user agent to avoid getting 403'd (eg. Substack).
+                // https://www.zenrows.com/blog/user-agent-web-scraping#best
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36'
+            }
+        });
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
