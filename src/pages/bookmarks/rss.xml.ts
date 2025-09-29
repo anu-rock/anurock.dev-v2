@@ -14,14 +14,13 @@ export const GET = async () => {
         // TODO: Cache these expensive operations.
         const { Content } = await render(bookmark);
         const bookmarkCommentaryHtml = await container.renderToString(Content);
-        const bookmarkCommentary = bookmarkCommentaryHtml.replace(/<[^>]*>/g, '').trim(); // remove html tags
 
         return {
             title: bookmark.data.title,
             description: bookmark.data.excerpt,
             pubDate: bookmark.data.readDate,
             link: `bookmarks/${bookmark.id}/`,
-            content: bookmarkCommentary,
+            content: bookmarkCommentaryHtml,
             commentsUrl: bookmark.data.url, // a hack to expose the article url
         };
     }));
