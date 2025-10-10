@@ -1,10 +1,19 @@
 import { type CollectionEntry, getCollection } from "astro:content";
+import { collectionDateSort } from "@/utils/date";
 
 /** filter out draft posts based on the environment */
 export async function getAllPosts(): Promise<CollectionEntry<"post">[]> {
 	return await getCollection("post", ({ data }) => {
 		return import.meta.env.PROD ? !data.draft : true;
 	});
+}
+
+/**
+ * Returns all posts sorted by published date.
+ */
+export async function getAllPostsByDate(): Promise<CollectionEntry<"post">[]> {
+	const posts = await getAllPosts();
+	return posts.sort(collectionDateSort);
 }
 
 /** groups posts by year (based on option siteConfig.sortPostsByUpdatedDate), using the year as the key
