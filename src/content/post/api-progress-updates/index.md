@@ -1,6 +1,6 @@
 ---
 title: "Streaming progress updates in long-running API requests"
-description: "🚧__TODO__🚧"
+description: "A ridiculously simple method to run a long-running task synchronously via an API while streaming updates to client.
 publishDate: "2025-10-10"
 tags: ["api", "http", "server-sent-events"]
 ---
