@@ -20,6 +20,7 @@ import { rehypeHeadingIds } from "@astrojs/markdown-remark";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeExternalLinks from "rehype-external-links";
 import rehypeUnwrapImages from "rehype-unwrap-images";
+import rehypeMermaid from 'rehype-mermaid';
 
 // https://astro.build/config
 export default defineConfig({
@@ -70,6 +71,10 @@ export default defineConfig({
 		}),
 	],
 	markdown: {
+		syntaxHighlight: {
+			type: 'shiki',
+			excludeLangs: ['mermaid'],
+		},
 		rehypePlugins: [
 			rehypeHeadingIds,
 			[rehypeAutolinkHeadings, { behavior: "wrap", properties: { className: ["not-prose"] } }],
@@ -81,6 +86,7 @@ export default defineConfig({
 				},
 			],
 			rehypeUnwrapImages,
+			rehypeMermaid,
 		],
 		remarkPlugins: [remarkReadingTime, remarkDirective, remarkAdmonitions],
 		remarkRehype: {
