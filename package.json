@@ -2,7 +2,7 @@
 	"name": "anurock.dev-v2",
 	"version": "1.0.0",
 	"scripts": {
-		"postinstall": "pnpx playwright-core install chromium",
+		"postinstall": "test -n \"$SKIP_POSTINSTALL\" || pnpx playwright-core install chromium",
 		"dev": "astro dev",
 		"start": "astro dev",
 		"build": "astro build",

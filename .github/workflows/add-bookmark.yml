@@ -35,7 +35,7 @@ jobs:
 
       # Step 3: Install dependencies
       - name: Install dependencies
-        run: npm install
+        run: SKIP_POSTINSTALL=1 npm install
 
       # Step 4: Run the create-bookmark script
       - name: Create bookmark
