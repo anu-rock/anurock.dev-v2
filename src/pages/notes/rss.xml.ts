@@ -3,6 +3,7 @@ import { siteConfig } from "@/site.config";
 import rss from "@astrojs/rss";
 import { render } from "astro:content";
 import { experimental_AstroContainer } from "astro/container"
+import { getImage } from "astro:assets";
 
 export const GET = async () => {
 	const notes = await getCollection("note");
@@ -12,13 +13,27 @@ export const GET = async () => {
 		// TODO: Cache these expensive operations.
         const { Content } = await render(note);
         const noteContentHtml = await container.renderToString(Content);
+		const coverImage = note.data.coverImage ? await getImage({ src: note.data.coverImage.src }) : null;
 
-		return {
+		const item = {
 			title: note.data.title,
 			pubDate: note.data.publishDate,
 			link: `notes/${note.id}/`,
 			content: noteContentHtml,
 		};
+
+		Object.assign(item, coverImage && {
+			enclosure: {
+				url: coverImage.src,
+				type: "image/jpeg",
+				// Length is required but not actually used by most feed readers.
+				// Also, it's a bit tricky to get the actual length without fetching the image.
+				// So we'll just use 1 if there's a cover image, and 0 if there isn't.
+				length: 1,
+			}
+		});
+
+		return item;
 	}));
 
 	return rss({
