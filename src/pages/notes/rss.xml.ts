@@ -8,8 +8,11 @@ import { getImage } from "astro:assets";
 export const GET = async () => {
 	const notes = await getCollection("note");
 	const container = await experimental_AstroContainer.create();
+	const sortedNotes = notes.sort((a, b) => 
+        b.data.publishDate.getTime() - a.data.publishDate.getTime()
+    );
 
-	const items = await Promise.all(notes.map(async (note) => {
+	const items = await Promise.all(sortedNotes.map(async (note) => {
 		// TODO: Cache these expensive operations.
         const { Content } = await render(note);
         const noteContentHtml = await container.renderToString(Content);
