@@ -2,7 +2,7 @@
 import { type CollectionEntry, render } from "astro:content";
 import FormattedDate from "@/components/FormattedDate.astro";
 import type { HTMLTag, Polymorphic } from "astro/types";
-import { Image,getImage } from "astro:assets";
+import { Image, getImage } from "astro:assets";
 
 type Props<Tag extends HTMLTag> = Polymorphic<{ as: Tag }> & {
 	note: CollectionEntry<"note">;
@@ -31,31 +31,43 @@ const coverImage = note.data.coverImage ? await getImage({ src: note.data.coverI
 			)
 		}
 	</Tag>
-	<FormattedDate
-		dateTimeOptions={{
-			year: "2-digit",
-			month: "2-digit",
-			day: "2-digit",
-		}}
-		date={note.data.publishDate}
-	/>
-	<div class="flex gap-4 mt-4">
-		<div class="flex-1 prose prose-sm prose-cactus max-w-none [&>p:last-of-type]:mb-0" class:list={{ "line-clamp-6": isPreview }}>
+	<a class="cactus-link" href={`/notes/${note.id}/`}>
+		<FormattedDate date={note.data.publishDate} />
+	</a>
+	<div class="mt-4 gap-4" class:list={{ flex: isPreview }}>
+		<div
+			class="prose prose-sm prose-cactus max-w-none [&>p:last-of-type]:mb-0"
+			class:list={{ "line-clamp-6": isPreview, "flex-1": isPreview }}
+		>
 			<Content />
 		</div>
-		{note.data.coverImage?.src && (
-			<div class="flex-shrink-0">
-				<a href={coverImage?.src || ""} target="_blank" rel="noreferrer">
-					<Image
-					alt={note.data.coverImage.alt}
-					class="object-cover"
-					fetchpriority="high"
-					loading="eager"
-					src={note.data.coverImage.src}
-					width={144}
-				/>
-				</a>
-			</div>
-		)}
+		{
+			note.data.coverImage?.src ? (
+				isPreview ? (
+					<div class="flex-shrink-0">
+						<a href={coverImage?.src || ""} target="_blank" rel="noreferrer">
+							<Image
+								alt={note.data.coverImage.alt}
+								class="object-cover"
+								fetchpriority="high"
+								loading="eager"
+								src={note.data.coverImage.src}
+								width={144}
+							/>
+						</a>
+					</div>
+				) : (
+					<div>
+						<Image
+							alt={note.data.coverImage.alt}
+							class="object-cover"
+							fetchpriority="high"
+							loading="eager"
+							src={note.data.coverImage.src}
+						/>
+					</div>
+				)
+			) : null
+		}
 	</div>
 </article>
