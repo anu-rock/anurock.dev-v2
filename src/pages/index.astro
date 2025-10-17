@@ -10,9 +10,8 @@ import Bookmark from "@/components/bookmark/Bookmark.astro";
 
 // Posts
 const MAX_POSTS = 10;
-const allPosts = (await getAllPostsByDate())
-const latestPosts = allPosts
-	.slice(0, MAX_POSTS) as CollectionEntry<"post">[];
+const allPosts = await getAllPostsByDate();
+const latestPosts = allPosts.slice(0, MAX_POSTS) as CollectionEntry<"post">[];
 
 // Notes
 const MAX_NOTES = 2;
@@ -32,77 +31,80 @@ const latestBookmarks = allBookmarks
 		<h1 class="title mb-6">Howdy 👋</h1>
 		<div>
 			<img
-				class="rounded-md outline -outline-offset-1 outline-black/10 md:float-right md:ml-3 md:w-2/5"
+				class="rounded-md outline -outline-offset-1 outline-black/10 md:float-right md:mb-2 md:ml-3 md:w-2/5"
 				src="/anurag-smirk.jpg"
 				alt="Anurag sitting in front of his computer monitor with a big smile on his face."
 			/>
-			<div class="mt-4">
+			<div class="mt-4 text-base">
 				<p class="mb-4">
 					Welcome to the garden of <a class="cactus-link" href="https://anuragbhandari.com"
 						>Anurag Bhandari</a
 					> the developer. I am a <strong>generalist</strong> software engineer.
 				</p>
 				<p class="mb-4">
-					This little space on the web is where I write about my coding adventures, mishappenings,
-					and breif notes in the hopes that my future self (or you) will find something useful.
+					This little space on the web is where I write about my coding (mis)adventures, share bookmarks,
+					and scribble short notes to help my future self (and you?) learn something useful.
 				</p>
 				<p class="mb-4">
-					🎩 Hats I have worn: Linux dev, system troubleshooter, .NET developer, full-stack
-					engineer, applied R&D technologist, front-end architect, API wiz, and (more recently)
-					engineering manager.
-				</p>
-				<p class="mb-4">
-					At heart, I am an excitable developer with a penchant for ✨ shiny new things, 🧪
-					experiments, 🪴 growth, and 🙂 emojis.
+					🎩 Hats I have worn over the years:
+					<br />
+					Full-Stack Engineer, Engineering Manager, Frontend Architect, Applied R&D Technologist, Linux
+					Developer, OSS Founder, and "<span class="decoration-accent underline decoration-wavy"
+						>the guy who'll fix my computer</span>".
+					</span>
+					<p class="mb-4">
+						I love experimenting with shiny new things ✨, learning
+						through knowledge sharing 📣, and spraying emojis 🙂.
+					</p>
 				</p>
 			</div>
 		</div>
-	</section>
-	<SocialList />
-	<section class="mt-16">
-		<h2 class="title text-accent mb-6 text-xl">
-			<a href="/posts/">📝 Posts ({allPosts.length})</a>
-		</h2>
-		<ul class="space-y-6" role="list">
-			{
-				latestPosts.map((p) => (
-					<li class="grid gap-2 sm:grid-cols-[auto_1fr]">
-						<PostPreview post={p} />
-					</li>
-				))
-			}
-		</ul>
-	</section>
-	{
-		latestNotes.length > 0 && (
-			<section class="mt-16">
-				<h2 class="title text-accent mb-6 text-xl">
-					<a href="/notes/">🤔 Notes ({allNotes.length})</a>
-				</h2>
-				<ul class="space-y-6" role="list">
-					{latestNotes.map((note) => (
-						<li>
-							<Note note={note} as="h3" isPreview />
+		<SocialList />
+		<section class="mt-16">
+			<h2 class="title text-accent mb-6 text-xl">
+				<a href="/posts/">📝 Posts ({allPosts.length})</a>
+			</h2>
+			<ul class="space-y-6" role="list">
+				{
+					latestPosts.map((p) => (
+						<li class="grid gap-2 sm:grid-cols-[auto_1fr]">
+							<PostPreview post={p} />
 						</li>
-					))}
-				</ul>
-			</section>
-		)
-	}
-	{
-		latestBookmarks.length > 0 && (
-			<section class="mt-16">
-				<h2 class="title text-accent mb-6 text-xl">
-					<a href="/bookmarks/">🔖 Bookmarks ({allBookmarks.length})</a>
-				</h2>
-				<ul class="space-y-6" role="list">
-					{latestBookmarks.map((bookmark) => (
-						<li>
-							<Bookmark bookmark={bookmark} as="h3" isPreview />
-						</li>
-					))}
-				</ul>
-			</section>
-		)
-	}
+					))
+				}
+			</ul>
+		</section>
+		{
+			latestNotes.length > 0 && (
+				<section class="mt-16">
+					<h2 class="title text-accent mb-6 text-xl">
+						<a href="/notes/">🤔 Notes ({allNotes.length})</a>
+					</h2>
+					<ul class="space-y-6" role="list">
+						{latestNotes.map((note) => (
+							<li>
+								<Note note={note} as="h3" isPreview />
+							</li>
+						))}
+					</ul>
+				</section>
+			)
+		}
+		{
+			latestBookmarks.length > 0 && (
+				<section class="mt-16">
+					<h2 class="title text-accent mb-6 text-xl">
+						<a href="/bookmarks/">🔖 Bookmarks ({allBookmarks.length})</a>
+					</h2>
+					<ul class="space-y-6" role="list">
+						{latestBookmarks.map((bookmark) => (
+							<li>
+								<Bookmark bookmark={bookmark} as="h3" isPreview />
+							</li>
+						))}
+					</ul>
+				</section>
+			)
+		}
+	</section>
 </PageLayout>
