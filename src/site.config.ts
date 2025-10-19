@@ -30,6 +30,8 @@ export const siteConfig: SiteConfig = {
 	caption: "Gardener with a knack for plumbing bits",
 	// ! Please remember to replace the following site property with your own domain, used in astro.config.ts
 	url: "https://anurock.dev/",
+	logoLight: "/icon.svg",
+	logoDark: "/icon-light.svg",
 };
 
 // Used to generate links in both the Header & Footer.

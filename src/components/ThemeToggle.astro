@@ -55,6 +55,7 @@
 <script>
 	// Note that if you fire the theme-change event outside of this component, it will not be reflected in the button's aria-checked attribute. You will need to add an event listener if you want that.
 	import { rootInDarkMode } from "@/utils/domElement";
+	import { siteConfig } from "@/site.config";
 
 	class ThemeToggle extends HTMLElement {
 		constructor() {
@@ -81,7 +82,7 @@
 					button.setAttribute("aria-checked", String(rootInDarkMode()));
 
 					// use the correct site logo
-					let logoSrc = rootInDarkMode() ? "/icon-light.svg" : "/icon.svg";
+					let logoSrc = rootInDarkMode() ? siteConfig.logoDark : siteConfig.logoLight;
 					document.getElementById("site-logo")?.setAttribute("src", logoSrc);
 				});
 			} else {

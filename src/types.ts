@@ -10,6 +10,8 @@ export interface SiteConfig {
 	title: string;
 	caption: string;
 	url: string;
+	logoLight: string;
+	logoDark: string;
 }
 
 export interface PaginationLink {
