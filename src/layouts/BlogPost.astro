@@ -17,6 +17,23 @@ const socialImage = ogImage ?? `/og-image/${post.id}.png`;
 const articleDate = updatedDate?.toISOString() ?? publishDate.toISOString();
 const { headings, remarkPluginFrontmatter } = await render(post);
 const readingTime: string = remarkPluginFrontmatter.readingTime;
+
+function displayDescAsJsDoc(
+	description: string | null | undefined,
+	strict: boolean
+): string[] | null {
+	const sentenceLength = 7; // words
+	const text = String(description ?? "").trim();
+	if (!text) return null;
+	const words = text.split(/\s+/);
+	const sentences = [];
+	for (let i = 0; i < words.length; i += sentenceLength) {
+		sentences.push(words.slice(i, i + sentenceLength).join(" "));
+	}
+	return strict
+		? ["/**", ...sentences.map((s) => `&nbsp;&nbsp;* ${s}`), "&nbsp;&nbsp;*/"]
+		: ["/**", text, "*/"];
+}
 ---
 
 <BaseLayout
@@ -34,6 +51,12 @@ const readingTime: string = remarkPluginFrontmatter.readingTime;
 			<div
 				class="prose prose-sm prose-headings:font-semibold prose-headings:text-accent-2 prose-headings:before:absolute prose-headings:before:-ms-4 prose-headings:before:text-gray-600 prose-headings:hover:before:text-accent sm:prose-headings:before:content-['#'] sm:prose-th:before:content-none"
 			>
+				<!-- prettier-ignore -->
+				<div class="font-semibold italic">
+					{displayDescAsJsDoc(description, false)?.map((line) => (
+						<div set:html={line}></div>
+					))}
+				</div>
 				<slot />
 				<WebMentions />
 			</div>
