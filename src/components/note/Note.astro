@@ -1,8 +1,9 @@
 ---
+import { Image, getImage } from "astro:assets";
 import { type CollectionEntry, render } from "astro:content";
 import FormattedDate from "@/components/FormattedDate.astro";
+import { Icon } from "astro-icon/components";
 import type { HTMLTag, Polymorphic } from "astro/types";
-import { Image, getImage } from "astro:assets";
 
 type Props<Tag extends HTMLTag> = Polymorphic<{ as: Tag }> & {
 	note: CollectionEntry<"note">;
@@ -31,9 +32,6 @@ const coverImage = note.data.coverImage ? await getImage({ src: note.data.coverI
 			)
 		}
 	</Tag>
-	<a class="cactus-link" href={`/notes/${note.id}/`}>
-		<FormattedDate date={note.data.publishDate} />
-	</a>
 	<div class="mt-4 gap-4" class:list={{ flex: isPreview }}>
 		<div
 			class="prose prose-sm prose-cactus max-w-none [&>p:last-of-type]:mb-0"
@@ -69,5 +67,11 @@ const coverImage = note.data.coverImage ? await getImage({ src: note.data.coverI
 				)
 			) : null
 		}
+	</div>
+	<div class="mt-3">
+		<Icon aria-hidden="true" class="inline" focusable="false" name="mdi:calendar" />
+		<a class="cactus-link" href={`/notes/${note.id}/`}>
+			<FormattedDate date={note.data.publishDate} />
+		</a>
 	</div>
 </article>
