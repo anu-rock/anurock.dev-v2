@@ -1,6 +1,7 @@
 ---
 import { type CollectionEntry, render } from "astro:content";
 import FormattedDate from "@/components/FormattedDate.astro";
+import { Icon } from "astro-icon/components";
 import type { HTMLTag, Polymorphic } from "astro/types";
 
 type Props<Tag extends HTMLTag> = Polymorphic<{ as: Tag }> & {
@@ -17,15 +18,10 @@ const { Content } = await render(bookmark);
 	data-pagefind-body={isPreview ? false : true}
 >
 	<Tag class="title" class:list={{ "text-base": isPreview }}>
-		{
-			isPreview ? (
-				<a class="cactus-link" href={`/bookmarks/${bookmark.id}/`}>
-					{bookmark.data.title}
-				</a>
-			) : (
-				<>{bookmark.data.title}</>
-			)
-		}
+		<a class="cactus-link" href={bookmark.data.url}>
+			{bookmark.data.title}
+			<Icon aria-hidden="true" class="inline" focusable="false" name="mdi:external-link" />
+		</a>
 	</Tag>
 	{
 		!isPreview && (
@@ -56,16 +52,16 @@ const { Content } = await render(bookmark);
 			<Content />
 		</blockquote>
 	</div>
-	{
-		!isPreview && (
-			<a
-				href={bookmark.data.url}
-				target="_blank"
-				rel="noopener noreferrer"
-				class="text-link hover:underline"
-			>
-				🔗 Read original →
-			</a>
-		)
-	}
+	<div>
+		{
+			isPreview ? (
+				<Icon aria-hidden="true" class="inline" focusable="false" name="mdi:calendar" />
+				<a class="cactus-link" href={`/bookmarks/${bookmark.id}/`}>
+					<FormattedDate date={bookmark.data.readDate} />
+				</a>
+			) : (
+				<></>
+			)
+		}
+	</div>
 </article>
