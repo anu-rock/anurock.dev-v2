@@ -6,6 +6,7 @@ tags: ["macos", "music", "automation"]
 coverImage:
     src: "./apple-music-paused.png"
     alt: "Music paused dialog on macOS"
+ogImage: "./apple-music-paused.png"
 ---
 
 This is probably the most esoteric post I've ever written, but I wanted to document it for my future self. It requires a bit of scripting, nothing too complicated.
