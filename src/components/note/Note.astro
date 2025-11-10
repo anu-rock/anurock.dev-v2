@@ -84,10 +84,14 @@ const coverImage = note.data.coverImage ? await getImage({ src: note.data.coverI
 			) : null
 		}
 	</div>
-	<div class="mt-3">
-		<Icon aria-hidden="true" class="inline" focusable="false" name="mdi:calendar" />
-		<a class="cactus-link" href={`/notes/${note.id}/`}>
-			<FormattedDate date={note.data.publishDate} />
-		</a>
-	</div>
+	{
+		isPreview ? (
+			<div class="mt-3">
+				<Icon aria-hidden="true" class="inline" focusable="false" name="mdi:calendar" />
+				<a class="cactus-link" href={`/notes/${note.id}/`}>
+					<FormattedDate date={note.data.publishDate} />
+				</a>
+			</div>
+		) : null
+	}
 </article>
