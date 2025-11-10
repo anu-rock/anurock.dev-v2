@@ -32,6 +32,22 @@ const coverImage = note.data.coverImage ? await getImage({ src: note.data.coverI
 			)
 		}
 	</Tag>
+	{
+		!isPreview && (
+			<div class="mb-2 flex flex-wrap items-center gap-2 text-sm">
+				<FormattedDate
+					dateTimeOptions={{
+						hour: "2-digit",
+						minute: "2-digit",
+						year: "2-digit",
+						month: "2-digit",
+						day: "2-digit",
+					}}
+					date={note.data.publishDate}
+				/>
+			</div>
+		)
+	}
 	<div class="mt-4 gap-4" class:list={{ flex: isPreview }}>
 		<div
 			class="prose prose-sm prose-cactus max-w-none [&>p:last-of-type]:mb-0"
