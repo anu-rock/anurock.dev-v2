@@ -72,7 +72,7 @@ function createSlug(title) {
 
 function generateFrontmatter(url, metadata, commentary) {
 	const now = new Date();
-	const readDate = toIsoStringWithTimezone(now);
+	const readDate = now.toISOString();
 
 	// Clean up title and description for YAML
 	const cleanTitle = metadata.title.replace(/"/g, '\\"');
@@ -93,17 +93,6 @@ readDate: "${readDate}"
 
 ${commentaryToAppend}
 `;
-}
-
-function toIsoStringWithTimezone(date) {
-	const tzo = -date.getTimezoneOffset(); // Get offset in minutes, reversed sign
-	const dif = tzo >= 0 ? "+" : "-"; // Determine sign of offset
-
-	// Helper function to pad numbers with a leading zero if needed
-	const pad = (num) => (num < 10 ? "0" : "") + num;
-
-	// Construct the ISO string with timezone offset
-	return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}${dif}${pad(Math.floor(Math.abs(tzo) / 60))}:${pad(Math.abs(tzo) % 60)}`;
 }
 
 async function createBookmark(url, commentary) {
