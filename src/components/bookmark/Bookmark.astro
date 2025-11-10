@@ -26,6 +26,13 @@ const { Content } = await render(bookmark);
 	{
 		!isPreview && (
 			<div class="mb-2 flex flex-wrap items-center gap-2 text-sm">
+				{new URL(bookmark.data.url).hostname}
+			</div>
+		)
+	}
+	{
+		!isPreview && (
+			<div class="mb-2 flex flex-wrap items-center gap-2 text-sm">
 				<FormattedDate
 					dateTimeOptions={{
 						hour: "2-digit",
@@ -39,14 +46,8 @@ const { Content } = await render(bookmark);
 			</div>
 		)
 	}
-	{
-		!isPreview && (
-			<p class="mb-3 text-sm text-gray-600 dark:text-gray-400">{bookmark.data.excerpt}</p>
-		)
-	}
 	<div
 		class="prose prose-sm prose-cactus mt-4 max-w-none [&>p:last-of-type]:mb-0"
-		class:list={{ "outline-2 outline-offset-2 outline-dotted": !isPreview }}
 	>
 		<blockquote>
 			<Content />
