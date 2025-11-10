@@ -1,6 +1,10 @@
 ---
 title: "<FTName | sentencecase>"
 description: "Description"
-publishDate: "2025-10-10"
+publishDate: "[DATE_NOW('yyyy-MM-dd'T'HH:mm:ssXXX')]"
 tags: ["tag-1", "tag-2"]
+coverImage:
+  src: "../array-indexing/featured.png"
+  alt: "Featured image"
+ogImage: "../array-indexing/featured.png"
 ---
