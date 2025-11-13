@@ -36,6 +36,7 @@ const coverImage = note.data.coverImage ? await getImage({ src: note.data.coverI
 		!isPreview && (
 			<div class="mb-2 flex flex-wrap items-center gap-2 text-sm">
 				<FormattedDate
+					className="note-date"
 					dateTimeOptions={{
 						hour: "2-digit",
 						minute: "2-digit",

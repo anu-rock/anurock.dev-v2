@@ -5,12 +5,37 @@ import type { HTMLAttributes } from "astro/types";
 type Props = HTMLAttributes<"time"> & {
 	date: Date;
 	dateTimeOptions?: Intl.DateTimeFormatOptions;
+	className?: string;
 };
 
-const { date, dateTimeOptions, ...attrs } = Astro.props;
+const { date, dateTimeOptions, className, ...attrs } = Astro.props;
 
 const postDate = getFormattedDate(date, dateTimeOptions);
 const ISO = date.toISOString();
 ---
 
-<time datetime={ISO} title={ISO} {...attrs}>{postDate}</time>
+<time class={className} datetime={ISO} title={ISO} {...attrs}>{postDate}</time>
+
+<script>
+	// Client-side enhancement to format specific timestamps according to user's locale.
+	// Without this script, the date is rendered in the server's timezone, which is typically UTC (eg. Vercel, Netlify).
+	// Probably bad code pattern that violates single responsibility principle, but it works for now.
+	// Maybe Astro offers a more elegant solution that I'm unaware of?
+	const timeElements = [
+		...document.getElementsByClassName("note-date"),
+		...document.getElementsByClassName("bookmark-date"),
+	];
+	for (const timeElement of timeElements) {
+		const date = new Date(timeElement.getAttribute("datetime") || "");
+		if (isNaN(date.getTime())) continue;
+		const options: Intl.DateTimeFormatOptions = {
+			hour: "2-digit",
+			minute: "2-digit",
+			year: "2-digit",
+			month: "2-digit",
+			day: "2-digit",
+		};
+		const formattedDate = new Intl.DateTimeFormat(navigator.language, options).format(date);
+		timeElement.textContent = formattedDate;
+	}
+</script>
