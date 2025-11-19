@@ -72,10 +72,10 @@ const coverImage = note.data.coverImage ? await getImage({ src: note.data.coverI
 						</a>
 					</div>
 				) : (
-					<div>
+					<div class="mt-4">
 						<Image
 							alt={note.data.coverImage.alt}
-							class="object-cover"
+							class="rounded-2xl object-cover"
 							fetchpriority="high"
 							loading="eager"
 							src={note.data.coverImage.src}
