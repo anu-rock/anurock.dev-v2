@@ -2,11 +2,11 @@
 import { type CollectionEntry, getCollection } from "astro:content";
 import SocialList from "@/components/SocialList.astro";
 import PostPreview from "@/components/blog/PostPreview.astro";
+import Bookmark from "@/components/bookmark/Bookmark.astro";
 import Note from "@/components/note/Note.astro";
 import { getAllPostsByDate } from "@/data/post";
 import PageLayout from "@/layouts/Base.astro";
 import { collectionDateSort } from "@/utils/date";
-import Bookmark from "@/components/bookmark/Bookmark.astro";
 
 // Posts
 const MAX_POSTS = 10;
@@ -39,72 +39,74 @@ const latestBookmarks = allBookmarks
 				<p class="mb-4">
 					Welcome to the garden of <a class="cactus-link" href="https://anuragbhandari.com"
 						>Anurag Bhandari</a
-					> the developer. I am a <strong>generalist</strong> software engineer.
+					> the developer, a <strong><a class="cactus-link" href="/about/">generalist</a></strong> software
+					engg.
 				</p>
 				<p class="mb-4">
-					This little space on the web is where I write about my coding (mis)adventures, share bookmarks,
-					and scribble short notes to help my future self (and you?) learn something useful.
+					This little space on the web is where I write about my coding (mis)adventures, share
+					bookmarks, and scribble short notes to help my future self (and you?) learn something
+					useful.
 				</p>
 				<p class="mb-4">
 					🎩 Hats I have worn over the years:
 					<br />
 					Full-Stack Engineer, Engineering Manager, Frontend Architect, Applied R&D Technologist, Linux
 					Developer, OSS Founder, and "<span class="decoration-accent underline decoration-wavy"
-						>the guy who'll fix my computer</span>".
-					</span>
-					<p class="mb-4">
-						I love experimenting with shiny new things ✨, learning
-						through knowledge sharing 📣, and spraying emojis 🙂.
-					</p>
+						>the guy who'll fix my computer</span
+					>".
+				</p>
+				<p class="mb-4">
+					I love experimenting with shiny new things ✨, learning through knowledge sharing 📣, and
+					spraying emojis 🙂.
 				</p>
 			</div>
 		</div>
-		<SocialList />
-		<section class="mt-16">
-			<h2 class="title text-accent mb-6 text-xl">
-				<a href="/posts/">📝 Posts ({allPosts.length})</a>
-			</h2>
-			<ul class="space-y-6" role="list">
-				{
-					latestPosts.map((p) => (
-						<li class="grid gap-2 sm:grid-cols-[auto_1fr]">
-							<PostPreview post={p} />
-						</li>
-					))
-				}
-			</ul>
-		</section>
-		{
-			latestNotes.length > 0 && (
-				<section class="mt-16">
-					<h2 class="title text-accent mb-6 text-xl">
-						<a href="/notes/">🤔 Notes ({allNotes.length})</a>
-					</h2>
-					<ul class="space-y-6" role="list">
-						{latestNotes.map((note) => (
-							<li>
-								<Note note={note} as="h3" isPreview />
-							</li>
-						))}
-					</ul>
-				</section>
-			)
-		}
-		{
-			latestBookmarks.length > 0 && (
-				<section class="mt-16">
-					<h2 class="title text-accent mb-6 text-xl">
-						<a href="/bookmarks/">🔖 Bookmarks ({allBookmarks.length})</a>
-					</h2>
-					<ul class="space-y-6" role="list">
-						{latestBookmarks.map((bookmark) => (
-							<li>
-								<Bookmark bookmark={bookmark} as="h3" isPreview />
-							</li>
-						))}
-					</ul>
-				</section>
-			)
-		}
 	</section>
+	<SocialList />
+	<section class="mt-16">
+		<h2 class="title text-accent mb-6 text-xl">
+			<a href="/posts/">📝 Posts ({allPosts.length})</a>
+		</h2>
+		<ul class="space-y-6" role="list">
+			{
+				latestPosts.map((p) => (
+					<li class="grid gap-2 sm:grid-cols-[auto_1fr]">
+						<PostPreview post={p} />
+					</li>
+				))
+			}
+		</ul>
+	</section>
+	{
+		latestNotes.length > 0 && (
+			<section class="mt-16">
+				<h2 class="title text-accent mb-6 text-xl">
+					<a href="/notes/">🤔 Notes ({allNotes.length})</a>
+				</h2>
+				<ul class="space-y-6" role="list">
+					{latestNotes.map((note) => (
+						<li>
+							<Note note={note} as="h3" isPreview />
+						</li>
+					))}
+				</ul>
+			</section>
+		)
+	}
+	{
+		latestBookmarks.length > 0 && (
+			<section class="mt-16">
+				<h2 class="title text-accent mb-6 text-xl">
+					<a href="/bookmarks/">🔖 Bookmarks ({allBookmarks.length})</a>
+				</h2>
+				<ul class="space-y-6" role="list">
+					{latestBookmarks.map((bookmark) => (
+						<li>
+							<Bookmark bookmark={bookmark} as="h3" isPreview />
+						</li>
+					))}
+				</ul>
+			</section>
+		)
+	}
 </PageLayout>
