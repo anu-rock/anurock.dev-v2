@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 
+import { getImage } from "astro:assets";
 import Note from "@/components/note/Note.astro";
 import PageLayout from "@/layouts/Base.astro";
 import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
@@ -18,11 +19,13 @@ export type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
 const { note } = Astro.props;
 
+const coverImage = note.data.coverImage ? await getImage({ src: note.data.coverImage.src }) : null;
 const meta = {
 	description:
 		note.data.description ||
 		`Read about my note posted on: ${note.data.publishDate.toLocaleDateString()}`,
 	title: note.data.title,
+	ogImage: coverImage?.src,
 };
 ---
 
