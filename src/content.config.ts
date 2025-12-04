@@ -6,7 +6,7 @@ function removeDupsAndLowerCase(array: string[]) {
 }
 
 const baseSchema = z.object({
-	title: z.string().max(80),
+	title: z.string().max(100),
 });
 
 const post = defineCollection({
@@ -36,20 +36,20 @@ const post = defineCollection({
 
 const note = defineCollection({
 	loader: glob({ base: "./src/content/note", pattern: "**/*.{md,mdx}" }),
-	schema: ({ image }) => 
+	schema: ({ image }) =>
 		baseSchema.extend({
-		description: z.string().optional(),
-		coverImage: z
+			description: z.string().optional(),
+			coverImage: z
 				.object({
 					alt: z.string(),
 					src: image(),
 				})
 				.optional(),
-		publishDate: z
-			.string()
-			.or(z.date())
-			.transform((val) => new Date(val)),
-	}),
+			publishDate: z
+				.string()
+				.or(z.date())
+				.transform((val) => new Date(val)),
+		}),
 });
 
 const bookmark = defineCollection({
