@@ -1,0 +1,59 @@
+name: Add Note
+
+on:
+  workflow_dispatch:
+    inputs:
+      note:
+        description: "Note (multi-line supported)"
+        required: true
+        type: string
+      title:
+        description: "Title (optional)"
+        required: false
+        type: string
+      coverImageUrl:
+        description: "Cover image URL (optional, downloaded into the repo)"
+        required: false
+        type: string
+      imageAlt:
+        description: "Cover image alt text (optional)"
+        required: false
+        type: string
+
+jobs:
+  add-note:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    # Restrict workflow to specific users
+    if: github.actor == 'anu-rock'
+
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "22"
+
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        run: SKIP_POSTINSTALL=1 npm install
+
+      # Step 4: Run the create-note script
+      - name: Create note
+        run: npm run create-note "${{ github.event.inputs.note }}" "${{ github.event.inputs.title }}" "${{ github.event.inputs.coverImageUrl }}" "${{ github.event.inputs.imageAlt }}"
+
+      # Step 5: Commit and push changes
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "AnuRock"
+          git config --global user.email "echo@anurock.dev"
+          git add .
+          git commit -m "Add note"
+          git push

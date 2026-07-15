@@ -13,7 +13,8 @@
 		"format:code": "biome format . --write && prettier -w \"**/*\" \"!**/*.{md,mdx}\" --ignore-unknown --cache",
 		"format:imports": "biome check --formatter-enabled=false --write",
 		"check": "astro check",
-		"create-bookmark": "node scripts/create-bookmark.cjs"
+		"create-bookmark": "node scripts/create-bookmark.cjs",
+		"create-note": "node scripts/create-note.cjs"
 	},
 	"dependencies": {
 		"@astrojs/markdown-remark": "^6.3.10",
