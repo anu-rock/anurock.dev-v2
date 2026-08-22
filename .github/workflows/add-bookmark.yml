@@ -25,11 +25,11 @@ jobs:
     steps:
       # Step 1: Checkout the repository
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # Step 2: Set up Node.js
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: "22"
 
@@ -38,8 +38,14 @@ jobs:
         run: SKIP_POSTINSTALL=1 npm install
 
       # Step 4: Run the create-bookmark script
+      # Inputs go through env, not string interpolation, so quotes/backticks in
+      # the commentary can't break (or inject into) the shell command.
       - name: Create bookmark
-        run: npm run create-bookmark "${{ github.event.inputs.url }}" "${{ github.event.inputs.commentary }}"
+        env:
+          BOOKMARK_URL: ${{ github.event.inputs.url }}
+          BOOKMARK_COMMENTARY: ${{ github.event.inputs.commentary }}
+          JINA_API_KEY: ${{ secrets.JINA_API_KEY }}
+        run: npm run create-bookmark "$BOOKMARK_URL" "$BOOKMARK_COMMENTARY"
 
       # Step 5: Commit and push changes
       - name: Commit and push changes

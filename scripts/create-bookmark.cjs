@@ -5,33 +5,83 @@ const { JSDOM } = require("jsdom");
 const FILE_NAME = __filename || path.basename(__filename);
 const DIR_NAME = path.dirname(FILE_NAME);
 
+const FETCH_TIMEOUT_MS = 20000;
+
 // Browser-like headers to avoid getting 403'd (eg. Substack).
 // https://www.zenrows.com/blog/user-agent-web-scraping#best
 const BROWSER_HEADERS = {
 	"User-Agent":
 		"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36",
-	Accept:
-		"text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+	Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
 	"Accept-Language": "en-US,en;q=0.9",
+	"Sec-Ch-Ua": '"Chromium";v="123", "Not:A-Brand";v="8"',
+	"Sec-Ch-Ua-Mobile": "?0",
+	"Sec-Ch-Ua-Platform": '"Windows"',
+	"Sec-Fetch-Dest": "document",
+	"Sec-Fetch-Mode": "navigate",
+	"Sec-Fetch-Site": "none",
+	"Sec-Fetch-User": "?1",
+	"Upgrade-Insecure-Requests": "1",
 };
 
-async function fetchHtmlDirect(url) {
-	const response = await fetch(url, { headers: BROWSER_HEADERS });
+async function fetchHtml(url, options = {}) {
+	const response = await fetch(url, {
+		...options,
+		redirect: "follow",
+		signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+	});
 	if (!response.ok) {
 		throw new Error(`HTTP error! status: ${response.status}`);
 	}
 	return await response.text();
 }
 
-async function fetchHtmlViaProxy(url) {
-	const response = await fetch(`https://r.jina.ai/${url}`, {
-		headers: { ...BROWSER_HEADERS, "X-Return-Format": "html" },
-	});
-	if (!response.ok) {
-		throw new Error(`Proxy HTTP error! status: ${response.status}`);
+function jinaHeaders() {
+	const headers = { ...BROWSER_HEADERS, "X-Return-Format": "html" };
+	// Anonymous r.jina.ai requests are rate limited per IP and are routinely
+	// 403'd from datacenter IPs (eg. GitHub Actions runners). A free key from
+	// https://jina.ai/reader lifts that; set it as the JINA_API_KEY secret.
+	if (process.env.JINA_API_KEY) {
+		headers.Authorization = `Bearer ${process.env.JINA_API_KEY}`;
 	}
-	return await response.text();
+	return headers;
 }
+
+async function fetchMetadataDirect(url) {
+	return parseMetadata(await fetchHtml(url, { headers: BROWSER_HEADERS }), url);
+}
+
+async function fetchMetadataViaJina(url) {
+	return parseMetadata(
+		await fetchHtml(`https://r.jina.ai/${url}`, { headers: jinaHeaders() }),
+		url,
+	);
+}
+
+// Microlink extracts the metadata server side, so it sidesteps the datacenter-IP
+// blocks that make direct fetches fail from CI. Free tier: 50 requests/day.
+async function fetchMetadataViaMicrolink(url) {
+	const body = await fetchHtml(`https://api.microlink.io/?url=${encodeURIComponent(url)}`, {
+		headers: { Accept: "application/json" },
+	});
+	const { status, data } = JSON.parse(body);
+	if (status !== "success" || !data) {
+		throw new Error(`unexpected response status "${status}"`);
+	}
+	return {
+		title: (data.title || "Untitled").trim(),
+		description: (data.description || "").trim(),
+		author: (data.author || "").trim(),
+		siteName: (data.publisher || new URL(url).hostname).trim(),
+	};
+}
+
+// Tried in order; the first one that yields usable metadata wins.
+const FETCH_STRATEGIES = [
+	{ name: "direct fetch", getMetadata: fetchMetadataDirect },
+	{ name: "microlink", getMetadata: fetchMetadataViaMicrolink },
+	{ name: "jina reader proxy", getMetadata: fetchMetadataViaJina },
+];
 
 function parseMetadata(html, url) {
 	const dom = new JSDOM(html);
@@ -66,18 +116,32 @@ function parseMetadata(html, url) {
 	};
 }
 
+function hasUsableMetadata(metadata) {
+	return (metadata.title !== "" && metadata.title !== "Untitled") || metadata.description !== "";
+}
+
 async function fetchPageMetadata(url) {
-	let html;
-	try {
-		html = await fetchHtmlDirect(url);
-	} catch (error) {
-		console.error(`Direct fetch failed (${error.message}). Falling back to reader proxy...`);
-		// Let a proxy failure propagate: we'd rather fail the run than post an
-		// "Untitled"/badly-titled bookmark.
-		html = await fetchHtmlViaProxy(url);
+	const failures = [];
+
+	for (const strategy of FETCH_STRATEGIES) {
+		try {
+			const metadata = await strategy.getMetadata(url);
+			// We'd rather fail the run than post an "Untitled"/badly-titled
+			// bookmark, so a contentless response counts as a failure too.
+			if (!hasUsableMetadata(metadata)) {
+				throw new Error("no title or description found in response");
+			}
+			if (failures.length > 0) {
+				console.error(`Recovered via ${strategy.name}.`);
+			}
+			return metadata;
+		} catch (error) {
+			failures.push(`${strategy.name}: ${error.message}`);
+			console.error(`${strategy.name} failed (${error.message}). Trying next source...`);
+		}
 	}
 
-	return parseMetadata(html, url);
+	throw new Error(`All metadata sources failed:\n  - ${failures.join("\n  - ")}`);
 }
 
 function createSlug(title) {
@@ -121,10 +185,6 @@ async function createBookmark(url, commentary) {
 
 		console.log(`Fetching metadata for: ${url}`);
 		const metadata = await fetchPageMetadata(url);
-
-		if (metadata.title === "Untitled" && metadata.description === "") {
-			throw new Error("Page metadata could not likely be fetched. Retrying usually fixes this.");
-		}
 
 		// Create filename from title
 		const slug = createSlug(metadata.title);
