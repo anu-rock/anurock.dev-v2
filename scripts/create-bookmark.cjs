@@ -1,6 +1,7 @@
 const fs = require("node:fs");
 const path = require("node:path");
 const { JSDOM } = require("jsdom");
+const { unescapeNewlines } = require("./unescape-newlines.cjs");
 
 const FILE_NAME = __filename || path.basename(__filename);
 const DIR_NAME = path.dirname(FILE_NAME);
@@ -223,7 +224,7 @@ async function createBookmark(url, commentary) {
 
 // Main execution
 const url = process.argv[2];
-const commentary = process.argv[3]; // optional
+const commentary = process.argv[3] && unescapeNewlines(process.argv[3]); // optional
 
 if (!url) {
 	console.error("❌ Please provide a URL as an argument");

@@ -1,5 +1,6 @@
 const fs = require("node:fs");
 const path = require("node:path");
+const { unescapeNewlines } = require("./unescape-newlines.cjs");
 
 const DIR_NAME = __dirname;
 const NOTE_DIR = path.join(DIR_NAME, "..", "src", "content", "note");
@@ -159,4 +160,4 @@ if (!note || !note.trim()) {
 	process.exit(1);
 }
 
-createNote({ note, title, coverImageUrl, imageAlt });
+createNote({ note: unescapeNewlines(note), title, coverImageUrl, imageAlt });

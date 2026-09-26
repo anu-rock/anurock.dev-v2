@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       note:
-        description: "Note (multi-line supported)"
+        description: 'Note in Markdown (\n = newline, e.g. "- a\n- b" for bullets; \n\n = new paragraph)'
         required: true
         type: string
       title:
@@ -46,8 +46,15 @@ jobs:
         run: SKIP_POSTINSTALL=1 npm install
 
       # Step 4: Run the create-note script
+      # Inputs go through env, not string interpolation, so quotes/backticks in
+      # the note can't break (or inject into) the shell command.
       - name: Create note
-        run: npm run create-note "${{ github.event.inputs.note }}" "${{ github.event.inputs.title }}" "${{ github.event.inputs.coverImageUrl }}" "${{ github.event.inputs.imageAlt }}"
+        env:
+          NOTE: ${{ github.event.inputs.note }}
+          NOTE_TITLE: ${{ github.event.inputs.title }}
+          NOTE_COVER_IMAGE_URL: ${{ github.event.inputs.coverImageUrl }}
+          NOTE_IMAGE_ALT: ${{ github.event.inputs.imageAlt }}
+        run: npm run create-note "$NOTE" "$NOTE_TITLE" "$NOTE_COVER_IMAGE_URL" "$NOTE_IMAGE_ALT"
 
       # Step 5: Commit and push changes
       - name: Commit and push changes

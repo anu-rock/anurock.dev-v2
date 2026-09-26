@@ -8,7 +8,7 @@ on:
         required: true
         type: string
       commentary:
-        description: "Commentary (multi-line supported)"
+        description: 'Commentary in Markdown (\n = newline, e.g. "- a\n- b" for bullets; \n\n = new paragraph)'
         required: false
         type: string
 
